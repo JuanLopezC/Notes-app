@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_sample_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
+    <string name="text_sample_long">Donec eu dui sodales, efficitur odio ut, venenatis nisi. Quisque a faucibus metus. Nunc laoreet, purus id pretium sollicitudin, purus arcu lacinia eros, eu aliquam ligula nisl id risus. Quisque neque orci, suscipit id risus in, euismod aliquam felis. Curabitur eu tristique orci, at tincidunt dui. Nam quis volutpat nunc. Cras mattis condimentum quam a tempor. Cras ut ipsum auctor, hendrerit mi eleifend, efficitur lorem. Suspendisse posuere eros nec felis suscipit venenatis.</string>
+</resources>

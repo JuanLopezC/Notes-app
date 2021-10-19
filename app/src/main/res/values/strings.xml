@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Tasks</string>
+    <string name="app_name">Notes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="note_detail_title">Title</string>
+    <string name="note_detail_description">Note</string>
+    <string name="menu_save">Save</string>
 </resources>

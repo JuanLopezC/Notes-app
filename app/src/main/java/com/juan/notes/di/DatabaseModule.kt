@@ -1,4 +1,4 @@
-package com.juan.notes.ui.di
+package com.juan.notes.di
 
 import android.app.Application
 import androidx.room.Room

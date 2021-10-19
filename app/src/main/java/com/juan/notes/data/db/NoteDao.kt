@@ -1,5 +1,6 @@
 package com.juan.notes.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,10 +10,10 @@ import com.juan.notes.data.models.Note
 @Dao
 interface NoteDao {
     @Query("SELECT * FROM note")
-    suspend fun getAll(): List<Note>
+    fun getAll(): LiveData<MutableList<Note>>
 
     @Query("SELECT * FROM note WHERE id = (:noteId)")
-    suspend fun loadById(noteId: Int): Note
+    fun loadById(noteId: Int): LiveData<Note>
 
     @Insert
     suspend fun insert(vararg note: Note)

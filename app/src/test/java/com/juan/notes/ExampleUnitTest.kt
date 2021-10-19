@@ -1,4 +1,4 @@
-package com.juan.tasks
+package com.juan.notes
 
 import org.junit.Test
 

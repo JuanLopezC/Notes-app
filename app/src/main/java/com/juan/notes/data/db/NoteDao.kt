@@ -13,7 +13,7 @@ interface NoteDao {
     fun getAll(): LiveData<MutableList<Note>>
 
     @Query("SELECT * FROM note WHERE id = (:noteId)")
-    fun loadById(noteId: Int): LiveData<Note>
+    fun loadById(noteId: Long): LiveData<Note>
 
     @Insert
     suspend fun insert(vararg note: Note)

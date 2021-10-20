@@ -14,7 +14,7 @@ class NoteRepository @Inject constructor(
         return noteDao.getAll()
     }
 
-    fun getNote(id: Int): LiveData<Note> {
+    fun getNote(id: Long): LiveData<Note> {
         return noteDao.loadById(id)
     }
 

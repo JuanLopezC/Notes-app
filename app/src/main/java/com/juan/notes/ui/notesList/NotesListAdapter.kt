@@ -1,8 +1,12 @@
 package com.juan.notes.ui.notesList
 
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +15,13 @@ import com.juan.notes.data.models.Note
 import com.juan.notes.databinding.NoteItemBinding
 
 class NotesListAdapter :
-    ListAdapter<Note, RecyclerView.ViewHolder>(NotesDiffCallback()) {
+    ListAdapter<Note, NotesListAdapter.ViewHolder>(NotesDiffCallback()) {
+
+    var tracker: SelectionTracker<Long>? = null
+
+    init {
+        setHasStableIds(true)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -20,21 +30,24 @@ class NotesListAdapter :
         return ViewHolder(view)
     }
 
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = getItem(position)
-        with(holder as ViewHolder) {
-            binding(note)
+        tracker?.let {
+            holder.bind(note, it.isSelected(position.toLong()))
         }
     }
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = NoteItemBinding.bind(view)
 
-        fun binding(note: Note) {
+        fun bind(note: Note, isActivated: Boolean) {
             binding.tvTitle.text = note.title
             binding.tvDescription.text = note.description
+            binding.ivSelected.isVisible = isActivated
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
@@ -42,6 +55,15 @@ class NotesListAdapter :
                 }
             }
         }
+
+        fun getItemDetail(): ItemDetailsLookup.ItemDetails<Long> =
+            object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getPosition(): Int  = adapterPosition
+                override fun getSelectionKey(): Long? = getItem(adapterPosition).id
+                override fun inSelectionHotspot(e: MotionEvent): Boolean {
+                    return true
+                }
+            }
 
     }
 
@@ -60,6 +82,7 @@ class NotesListAdapter :
     fun setOnClickListener(listener: (Note) -> Unit) {
         onItemClickListener = listener
     }
+
 
 
 }

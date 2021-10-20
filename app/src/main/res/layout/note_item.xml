@@ -49,12 +49,21 @@
             android:layout_marginTop="@dimen/common_padding_min"
             android:layout_marginHorizontal="@dimen/common_padding_default"
             android:padding="@dimen/common_padding_min"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivSelected"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDescription"
             tools:text="5 / 10 subtasks"
             android:gravity="center_horizontal|end"
             />
+        <ImageView
+            android:id="@+id/ivSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tvDescription"
+            app:layout_constraintTop_toTopOf="@id/tvSubtasksCount"
+            app:layout_constraintBottom_toBottomOf="@id/tvSubtasksCount"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

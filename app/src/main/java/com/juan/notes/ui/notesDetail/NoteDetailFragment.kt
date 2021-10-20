@@ -21,7 +21,7 @@ class NoteDetailFragment : Fragment() {
     private val noteViewModel: NoteDetailViewModel by viewModels()
 
     private lateinit var note: Note
-    private var noteId: Int = 0
+    private var noteId: Long = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class NoteDetailFragment : Fragment() {
         setHasOptionsMenu(true)
 
         arguments?.let {
-            noteId = it.getInt("id_note")
+            noteId = it.getLong("id_note")
         }
     }
     override fun onCreateView(
@@ -66,7 +66,7 @@ class NoteDetailFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        if(noteId != 0){
+        if(noteId != 0L){
             noteViewModel.getNote(noteId).observe(viewLifecycleOwner, {
                 note = it
                 binding.etTitle.setText(it.title)

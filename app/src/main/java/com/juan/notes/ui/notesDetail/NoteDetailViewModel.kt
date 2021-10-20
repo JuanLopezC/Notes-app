@@ -23,7 +23,7 @@ class NoteDetailViewModel @Inject constructor(
         }
     }
 
-    fun getNote(id: Int): LiveData<Note> {
+    fun getNote(id: Long): LiveData<Note> {
         return getNoteByIdUseCase(id)
     }
 }

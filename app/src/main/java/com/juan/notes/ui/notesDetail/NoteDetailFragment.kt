@@ -9,9 +9,6 @@ import androidx.fragment.app.viewModels
 import com.juan.notes.R
 import com.juan.notes.data.models.Note
 import com.juan.notes.databinding.FragmentNoteDetailBinding
-import com.juan.notes.ui.MainActivity
-import com.juan.notes.ui.notesList.NoteViewModel
-import com.juan.notes.ui.notesList.NotesListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,15 +20,19 @@ class NoteDetailFragment : Fragment() {
     private lateinit var note: Note
     private var noteId: Int = 0
 
+    private var editMode: Boolean = false
+    private var deleteNote: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
         arguments?.let {
             noteId = it.getInt("id_note")
         }
+        if (noteId != 0) editMode = true
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,21 +44,27 @@ class NoteDetailFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_save, menu)
+        if (editMode) inflater.inflate(R.menu.menu_save_delete, menu)
+        else inflater.inflate(R.menu.menu_save, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         hideKeyboard()
-        return when(item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
                 activity?.onBackPressed()
                 true
             }
             R.id.action_save -> {
-                note.title = binding.etTitle.text.toString()
-                note.description = binding.etDescription.text.toString()
-                noteViewModel.insertNote(note)
+                if (editMode) editNote()
+                else insertNote()
+                activity?.onBackPressed()
+                true
+            }
+            R.id.action_delete -> {
+                noteViewModel.deleteNote(note)
+                deleteNote = true
                 activity?.onBackPressed()
                 true
             }
@@ -66,7 +73,7 @@ class NoteDetailFragment : Fragment() {
     }
 
     private fun setUpViewModel() {
-        if(noteId != 0){
+        if (noteId != 0) {
             noteViewModel.getNote(noteId).observe(viewLifecycleOwner, {
                 note = it
                 binding.etTitle.setText(it.title)
@@ -78,9 +85,26 @@ class NoteDetailFragment : Fragment() {
 
     }
 
+    override fun onDetach() {
+        super.onDetach()
+    }
+
+    private fun editNote() {
+        note.title = binding.etTitle.text.toString()
+        note.description = binding.etDescription.text.toString()
+        noteViewModel.updateNote(note)
+    }
+
+    private fun insertNote() {
+        note.title = binding.etTitle.text.toString()
+        note.description = binding.etDescription.text.toString()
+        noteViewModel.insertNote(note)
+    }
+
     private fun hideKeyboard() {
         activity?.currentFocus?.let {
-            val imn = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val imn =
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imn?.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }

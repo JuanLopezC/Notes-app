@@ -1,6 +1,7 @@
 package com.juan.notes.data.repository.note
 
 import androidx.lifecycle.LiveData
+import com.juan.notes.NoteApplication
 import com.juan.notes.data.db.NoteDao
 import com.juan.notes.data.models.Note
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,10 @@ class NoteRepository @Inject constructor(
 
     suspend fun insertNote(note: Note) {
         noteDao.insert(note)
+    }
+
+    suspend fun updateNote(note: Note) = withContext(Dispatchers.IO){
+        noteDao.update(note)
     }
 
     suspend fun deleteNote(note: Note){

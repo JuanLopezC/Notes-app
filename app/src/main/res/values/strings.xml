@@ -5,4 +5,6 @@
     <string name="note_detail_title">Title</string>
     <string name="note_detail_description">Note</string>
     <string name="menu_save">Save</string>
+    <string name="add_subtask">Add subtask</string>
+    <string name="menu_delete">Delete</string>
 </resources>

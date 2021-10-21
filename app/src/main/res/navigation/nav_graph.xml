@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/tasksListFragment"
         android:name="com.juan.notes.ui.notesList.NotesListFragment"
-        android:label="fragment_tasks_list"
-        tools:layout="@layout/fragment_notes_list" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_notes_list">
         <action
             android:id="@+id/action_tasksListFragment_to_noteDetailFragment"
             app:destination="@id/noteDetailFragment"
-            app:enterAnim="@anim/from_bottom" />
+            app:enterAnim="@anim/open_in"
+            app:popExitAnim="@anim/close_up" />
     </fragment>
     <fragment
         android:id="@+id/noteDetailFragment"
         android:name="com.juan.notes.ui.notesDetail.NoteDetailFragment"
-        android:label="fragment_note_detail"
-        tools:layout="@layout/fragment_note_detail" >
+        tools:layout="@layout/fragment_note_detail">
         <argument
             android:name="id_note"
             app:argType="integer" />

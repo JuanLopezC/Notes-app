@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.juan.notes.NoteApplication
 import com.juan.notes.data.db.NoteDao
 import com.juan.notes.data.models.Note
+import com.juan.notes.data.models.NotesWithTasks
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -15,7 +16,11 @@ class NoteRepository @Inject constructor(
         return noteDao.getAll()
     }
 
-    fun getNote(id: Int): LiveData<Note> {
+    fun getNoteWithTask(id: Long): LiveData<NotesWithTasks>{
+        return noteDao.getNoteWithTasks(id)
+    }
+
+    fun getNote(id: Long): LiveData<Note> {
         return noteDao.loadById(id)
     }
 

@@ -22,7 +22,6 @@ class NotesListFragment : Fragment() {
     private lateinit var gridLayout: GridLayoutManager
     private val noteViewModel: NoteViewModel by viewModels()
 
-    private var tracker: SelectionTracker<Note>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +40,8 @@ class NotesListFragment : Fragment() {
 
 
     private fun setUpViewModel(){
-        noteViewModel.getNotesList().observe(viewLifecycleOwner, {
-            listAdapter.submitList(it)
+        noteViewModel.notesObserver.observe(viewLifecycleOwner,{ notesList ->
+            listAdapter.submitList(notesList)
         })
     }
 
@@ -59,7 +58,7 @@ class NotesListFragment : Fragment() {
 
     }
 
-    private fun launchDetailNote(id: Int){
+    private fun launchDetailNote(id: Long){
         val action = NotesListFragmentDirections.actionTasksListFragmentToNoteDetailFragment(id)
         this.findNavController().navigate(action)
     }

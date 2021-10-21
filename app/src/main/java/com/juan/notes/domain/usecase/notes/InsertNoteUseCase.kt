@@ -1,4 +1,4 @@
-package com.juan.notes.domain.usecase
+package com.juan.notes.domain.usecase.notes
 
 import com.juan.notes.data.models.Note
 import com.juan.notes.data.repository.note.NoteRepository

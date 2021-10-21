@@ -11,7 +11,7 @@ import com.juan.notes.data.models.Note
 import com.juan.notes.databinding.NoteItemBinding
 
 class NotesListAdapter :
-    ListAdapter<Note, RecyclerView.ViewHolder>(NotesDiffCallback()) {
+    ListAdapter<Note, NotesListAdapter.ViewHolder>(NotesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,9 +21,9 @@ class NotesListAdapter :
     }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NotesListAdapter.ViewHolder, position: Int) {
         val note = getItem(position)
-        with(holder as ViewHolder) {
+        with(holder) {
             binding(note)
         }
     }
@@ -33,7 +33,11 @@ class NotesListAdapter :
         private val binding = NoteItemBinding.bind(view)
 
         fun binding(note: Note) {
-            binding.tvTitle.text = note.title
+            if(note.title.isNullOrEmpty()) binding.tvTitle.visibility = View.GONE
+            else{
+                binding.tvTitle.visibility = View.VISIBLE
+                binding.tvTitle.text = note.title
+            }
             binding.tvDescription.text = note.description
 
             binding.root.setOnClickListener {

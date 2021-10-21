@@ -59,7 +59,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/etTitle" />
 
-            <View
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/viewSubtasks"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -67,7 +67,8 @@
                 app:layout_constraintBottom_toTopOf="@id/imgAddSubtask"
                 app:layout_constraintEnd_toEndOf="@id/etDescription"
                 app:layout_constraintStart_toStartOf="@id/etDescription"
-                app:layout_constraintTop_toBottomOf="@id/etDescription" />
+                app:layout_constraintTop_toBottomOf="@id/etDescription"
+                tools:listitem="@layout/task_item"/>
 
             <ImageButton
                 android:id="@+id/imgAddSubtask"
@@ -78,7 +79,8 @@
                 android:src="@drawable/ic_add_box"
                 app:layout_constraintStart_toStartOf="@id/viewSubtasks"
                 app:layout_constraintTop_toBottomOf="@id/viewSubtasks"
-                android:importantForAccessibility="no"/>
+                android:importantForAccessibility="no"
+                android:visibility="gone"/>
 
             <TextView
                 style="?attr/textAppearanceSubtitle2"
@@ -89,7 +91,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/imgAddSubtask"
                 app:layout_constraintEnd_toEndOf="@id/viewSubtasks"
                 app:layout_constraintStart_toEndOf="@id/imgAddSubtask"
-                app:layout_constraintTop_toTopOf="@id/imgAddSubtask" />
+                app:layout_constraintTop_toTopOf="@id/imgAddSubtask"
+                android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

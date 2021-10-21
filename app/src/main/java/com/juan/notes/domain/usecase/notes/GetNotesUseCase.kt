@@ -1,4 +1,4 @@
-package com.juan.notes.domain.usecase
+package com.juan.notes.domain.usecase.notes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
